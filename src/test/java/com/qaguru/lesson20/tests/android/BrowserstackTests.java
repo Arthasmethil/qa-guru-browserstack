@@ -1,5 +1,7 @@
-package com.qaguru.lesson20.tests;
+package com.qaguru.lesson20.tests.android;
 
+import com.qaguru.lesson20.pages.SearchPage;
+import com.qaguru.lesson20.tests.TestBase;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -12,10 +14,10 @@ import static io.qameta.allure.Allure.step;
 
 public class BrowserstackTests extends TestBase {
 
-    @DisplayName("Login via android device")
+    @DisplayName("Search Appium via Wiki")
     @Tag("android")
     @Test
-    void loginAndroidTest() {
+    void searchAppiumTest() {
         step("Type search", () -> {
             $(accessibilityId("Search Wikipedia")).click();
             $(id("org.wikipedia.alpha:id/search_src_text")).sendKeys("Appium");
@@ -25,16 +27,12 @@ public class BrowserstackTests extends TestBase {
                         .shouldHave(sizeGreaterThan(0)));
     }
 
-    @DisplayName("Login via ios device")
-    @Tag("ios")
+    @DisplayName("Search Selenide via Wiki")
+    @Tag("android")
     @Test
-    void loginIosTest() {
-        step("Type search", () -> {
-            $(accessibilityId("Search Wikipedia")).click();
-            $(id("org.wikipedia.alpha:id/search_src_text")).sendKeys("Appium");
-        });
-        step("Verify content found", () ->
-                $$(id("org.wikipedia.alpha:id/page_list_item_title"))
-                        .shouldHave(sizeGreaterThan(0)));
+    void searchSelenideTest() {
+        SearchPage searchPage = new SearchPage();
+        searchPage.inputTextToFind("Selenide");
+        searchPage.checkResultsNotEmpty();
   }
 }
