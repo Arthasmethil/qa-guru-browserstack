@@ -15,9 +15,10 @@ import static com.codeborne.selenide.Selenide.open;
 
 
 public class TestBase {
+    public static final String deviceHost = System.getProperty("deviceHost", "emulator");
+
     @BeforeAll
     public static void setUp() {
-        String deviceHost = System.getProperty("deviceHost", "emulator");
         if (deviceHost.equals("browserstack")) {
             Configuration.browser = BrowserstackDriver.class.getName();
         } else if (deviceHost.equals("emulator")) {
@@ -37,11 +38,12 @@ public class TestBase {
 
     @AfterEach
     public void afterEach() {
-        String sessionId = Selenide.sessionId().toString();
-
         Attach.pageSource();
         Selenide.closeWebDriver();
 
-        Attach.addVideo(sessionId);
+        if (deviceHost.equals("browserstack")) {
+            String sessionId = Selenide.sessionId().toString();
+            Attach.addVideo(sessionId);
+        }
     }
 }

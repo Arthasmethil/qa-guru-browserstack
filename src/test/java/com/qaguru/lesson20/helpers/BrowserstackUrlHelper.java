@@ -27,7 +27,6 @@ public class BrowserstackUrlHelper {
                 .then()
                 .log().status()
                 .log().body()
-                .statusCode(200)
                 .extract().path("automation_session.video_url");
     }
 }
