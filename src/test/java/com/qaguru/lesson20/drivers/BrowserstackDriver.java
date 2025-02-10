@@ -9,7 +9,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 
 import javax.annotation.Nonnull;
 
-import static com.qaguru.lesson20.helpers.Browserstack.getBrowserstackUrl;
+import static com.qaguru.lesson20.helpers.BrowserstackUrlHelper.getBrowserstackUrl;
 import static com.qaguru.lesson20.helpers.ConfigEnvHelper.*;
 
 public class BrowserstackDriver implements WebDriverProvider {

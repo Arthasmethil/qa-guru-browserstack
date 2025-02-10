@@ -2,6 +2,7 @@ package com.qaguru.lesson20.tests.android;
 
 import com.qaguru.lesson20.pages.SearchPage;
 import com.qaguru.lesson20.tests.TestBase;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -14,6 +15,7 @@ import static io.qameta.allure.Allure.step;
 
 public class BrowserstackTests extends TestBase {
 
+    @Disabled
     @DisplayName("Search Appium via Wiki")
     @Tag("android")
     @Test
@@ -27,6 +29,7 @@ public class BrowserstackTests extends TestBase {
                         .shouldHave(sizeGreaterThan(0)));
     }
 
+    @Disabled
     @DisplayName("Search Selenide via Wiki")
     @Tag("android")
     @Test

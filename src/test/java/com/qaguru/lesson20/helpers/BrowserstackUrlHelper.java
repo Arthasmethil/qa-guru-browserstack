@@ -8,7 +8,7 @@ import static com.qaguru.lesson20.helpers.ConfigEnvHelper.USERNAME;
 import static io.restassured.RestAssured.given;
 
 
-public class Browserstack {
+public class BrowserstackUrlHelper {
     public static URL getBrowserstackUrl() {
         try {
             return new URL("https://" + USERNAME + ":" + PASSWORD

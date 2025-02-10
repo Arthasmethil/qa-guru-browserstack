@@ -4,6 +4,7 @@ import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import com.qaguru.lesson20.drivers.BrowserstackDriver;
+import com.qaguru.lesson20.drivers.LocalDriver;
 import com.qaguru.lesson20.helpers.Attach;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.AfterEach;
@@ -16,7 +17,14 @@ import static com.codeborne.selenide.Selenide.open;
 public class TestBase {
     @BeforeAll
     public static void setUp() {
-        Configuration.browser = BrowserstackDriver.class.getName();
+        String deviceHost = System.getProperty("deviceHost", "emulator");
+        if (deviceHost.equals("browserstack")) {
+            Configuration.browser = BrowserstackDriver.class.getName();
+        } else if (deviceHost.equals("emulator")) {
+            Configuration.browser = LocalDriver.class.getName();
+        } else {
+            throw new RuntimeException("Unknown deviceHost was provided.");
+        }
         Configuration.browserSize = null;
         Configuration.timeout = 30000;
     }
