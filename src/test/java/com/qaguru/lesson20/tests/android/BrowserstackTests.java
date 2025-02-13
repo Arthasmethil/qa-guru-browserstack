@@ -1,17 +1,14 @@
 package com.qaguru.lesson20.tests.android;
 
 import com.qaguru.lesson20.pages.SearchPage;
+import com.qaguru.lesson20.pages.SearchResultPage;
 import com.qaguru.lesson20.tests.TestBase;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-import static com.codeborne.selenide.CollectionCondition.sizeGreaterThan;
-import static com.codeborne.selenide.Selenide.*;
-import static io.appium.java_client.AppiumBy.accessibilityId;
-import static io.appium.java_client.AppiumBy.id;
-import static io.qameta.allure.Allure.step;
+import static com.qaguru.lesson20.constants.Constants.*;
 
 public class BrowserstackTests extends TestBase {
 
@@ -20,13 +17,9 @@ public class BrowserstackTests extends TestBase {
     @Tag("android")
     @Test
     void searchAppiumTest() {
-        step("Type search", () -> {
-            $(accessibilityId("Search Wikipedia")).click();
-            $(id("org.wikipedia.alpha:id/search_src_text")).sendKeys("Appium");
-        });
-        step("Verify content found", () ->
-                $$(id("org.wikipedia.alpha:id/page_list_item_title"))
-                        .shouldHave(sizeGreaterThan(0)));
+        SearchPage searchPage = new SearchPage();
+        searchPage.inputTextToFind(APPIUM_SEARCH);
+        searchPage.checkResultsNotEmpty();
     }
 
     @Disabled
@@ -35,7 +28,11 @@ public class BrowserstackTests extends TestBase {
     @Test
     void searchSelenideTest() {
         SearchPage searchPage = new SearchPage();
-        searchPage.inputTextToFind("Selenide");
+        searchPage.inputTextToFind(SELENIDE_SEARCH);
         searchPage.checkResultsNotEmpty();
+
+        SearchResultPage searchResultPage = new SearchResultPage();
+        searchResultPage.clickOnFirstElementOfResult();
+        searchResultPage.checkErrorOpenedPage(ERROR_DESCRIPTION);
   }
 }

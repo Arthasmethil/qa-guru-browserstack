@@ -1,6 +1,7 @@
 package com.qaguru.lesson20.drivers;
 
 import com.codeborne.selenide.WebDriverProvider;
+import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
 import org.openqa.selenium.Capabilities;
@@ -9,43 +10,34 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 
 import javax.annotation.Nonnull;
 
-import static com.qaguru.lesson20.helpers.BrowserstackUrlHelper.getBrowserstackUrl;
-import static com.qaguru.lesson20.helpers.ConfigEnvHelper.*;
+import static com.qaguru.lesson20.config.DeviceConfigCreator.deviceConfig;
+import static com.qaguru.lesson20.config.MobileConfigCreator.mobileConfig;
+import static com.qaguru.lesson20.helpers.Browserstack.getBrowserstackUrl;
+import static com.qaguru.lesson20.helpers.IphoneRegexProvider.isIphone;
 
 public class BrowserstackDriver implements WebDriverProvider {
 
     @Nonnull
     @Override
     public WebDriver createDriver(@Nonnull Capabilities capabilities) {
-        if (isAndroid) {
-            return getAndroidDriver();
-        } else if (isIos) {
-            return getIosDriver();
-        } else {
-            throw new RuntimeException("Unknown platform");
-        }
+        return createDriver();
     }
 
     private DesiredCapabilities commonCapabilities() {
         DesiredCapabilities caps = new DesiredCapabilities();
-        caps.setCapability("project", PROJECT_NAME);
+        caps.setCapability("project", mobileConfig.projectName());
         return caps;
     }
 
-    public AndroidDriver getAndroidDriver() {
+    public AppiumDriver createDriver() {
         DesiredCapabilities caps = commonCapabilities();
-        caps.setCapability("app", ANDROID_APP);
-        caps.setCapability("deviceName", ANDROID_DEVICE);
-        caps.setCapability("os_version", ANDROID_VERSION);
+        caps.setCapability("app", mobileConfig.appUrl());
+        caps.setCapability("deviceName", deviceConfig.deviceName());
+        caps.setCapability("os_version", deviceConfig.deviceOsVersion());
+        if (isIphone(deviceConfig.deviceName())) {
+            caps.setCapability("autoAcceptAlerts", true);
+            return new IOSDriver(getBrowserstackUrl(), caps);
+        }
         return new AndroidDriver(getBrowserstackUrl(), caps);
-    }
-
-    private IOSDriver getIosDriver() {
-        DesiredCapabilities capabilities = commonCapabilities();
-        capabilities.setCapability("app", IOS_APP);
-        capabilities.setCapability("deviceName", IOS_DEVICE);
-        capabilities.setCapability("os_version", IOS_VERSION);
-        capabilities.setCapability("autoAcceptAlerts", true);
-        return new IOSDriver(getBrowserstackUrl(), capabilities);
     }
 }

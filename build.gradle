@@ -21,13 +21,13 @@ def aspectjWeaverVersion = "1.9.22",
 
 allure {
     report {
-        version.set("2.19.0")
+        version.set(allureVersion)
     }
     adapter {
         aspectjWeaver.set(true)
         frameworks {
             junit5 {
-                adapterVersion.set("2.19.0")
+                adapterVersion.set(allureVersion)
             }
         }
     }
