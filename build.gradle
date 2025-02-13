@@ -70,3 +70,9 @@ tasks.register('ios_test', Test) {
         includeTags("ios")
     }
 }
+
+tasks.register('wiki_test', Test) {
+    useJUnitPlatform {
+        includeTags("wiki")
+    }
+}

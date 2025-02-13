@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 public class WikiAppTests extends TestBase {
 
     @DisplayName("Wiki Onboarding test")
-    @Tag("emulator")
+    @Tag("wiki")
     @Test
     void searchSelenideTest() {
         OnboardingWikiPage onboardingWikiPage = new OnboardingWikiPage();

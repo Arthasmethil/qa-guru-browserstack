@@ -13,4 +13,12 @@ public interface DeviceConfig extends Config {
 
     @Key("device.osVersion")
     String deviceOsVersion();
+
+    @Key("appPackage")
+    @DefaultValue("")
+    String appPackage();
+
+    @Key("appActivity")
+    @DefaultValue("")
+    String appActivity();
 }

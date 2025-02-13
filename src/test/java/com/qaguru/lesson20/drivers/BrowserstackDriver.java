@@ -12,7 +12,7 @@ import javax.annotation.Nonnull;
 
 import static com.qaguru.lesson20.config.DeviceConfigCreator.deviceConfig;
 import static com.qaguru.lesson20.config.MobileConfigCreator.mobileConfig;
-import static com.qaguru.lesson20.helpers.Browserstack.getBrowserstackUrl;
+import static com.qaguru.lesson20.helpers.BrowserstackUrlHelper.getBrowserstackUrl;
 import static com.qaguru.lesson20.helpers.IphoneRegexProvider.isIphone;
 
 public class BrowserstackDriver implements WebDriverProvider {
