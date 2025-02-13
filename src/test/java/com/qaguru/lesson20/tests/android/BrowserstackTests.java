@@ -31,10 +31,5 @@ public class BrowserstackTests extends TestBase {
         SearchResultPage searchResultPage = new SearchResultPage();
         searchResultPage.clickOnFirstElementOfResult();
         searchResultPage.checkErrorOpenedPage(ERROR_DESCRIPTION);
-
-
-
-
-
   }
 }
